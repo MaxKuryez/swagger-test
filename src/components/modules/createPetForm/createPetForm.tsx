@@ -37,18 +37,18 @@ const CreatePetForm = () => {
     }));
   };
 
-  const handleTagsIdChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
+  const handleTagsIdChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newTags = [...formData.tags];
-    newTags[index].id = parseInt(e.target.value);
+    newTags[0].id = parseInt(e.target.value);
     setFormData((prevData) => ({
       ...prevData,
       tags: newTags,
     }));
   };
 
-  const handleTagsNameChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
+  const handleTagsNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newTags = [...formData.tags];
-    newTags[index].name = e.target.value;
+    newTags[0].name = e.target.value;
     setFormData((prevData) => ({
       ...prevData,
       tags: newTags,
@@ -84,24 +84,20 @@ const CreatePetForm = () => {
       <TextField label="Name" value={formData.name} onChange={handleNameChange} />
       <TextField label="ID" type="number" value={formData.id} onChange={handleIdChange} />
       <TextField label="Category" value={formData.category.name} onChange={handleCategoryChange} />
-      {formData.tags.map((tag, index) => (
-        <div key={index}>
         <TextField
           label="Tag ID"
           type="number"
-          value={tag.id}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => handleTagsIdChange(e, index)}
+          value={formData.tags[0].id}
+          onChange={handleTagsIdChange}
         />
         <TextField
           label="Tag Name"
-          value={tag.name}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => handleTagsNameChange(e, index)}
+          value={formData.tags[0].name}
+          onChange={handleTagsNameChange}
         />
-      </div>
-      ))}
       <FormControl>
         Status:
-        <Select value={formData.status} onChange={handleStatusChange}>
+        <Select label="Status" value={formData.status} onChange={handleStatusChange}>
           <MenuItem value="available">Available</MenuItem>
           <MenuItem value="pending">Pending</MenuItem>
           <MenuItem value="sold">Sold</MenuItem>
